@@ -16,7 +16,7 @@ public class Alice {
     private static BufferedWriter writer;
 
     public static void main(String[] args) throws IOException {
-        serverSocket = new ServerSocket(25565);
+        serverSocket = new ServerSocket(25566);
 
         // Warte bis Bob bereit ist die Daten anzunehmen
         socket = serverSocket.accept();

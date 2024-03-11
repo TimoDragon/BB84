@@ -22,12 +22,12 @@ public class Bob {
         writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 
         // Bits von Alice
-        List<QBit> qbits = readBitsFromAlice();
+        List<QBit> qBits = readBitsFromAlice();
         // Zufällig generierte Basen von Bob
-        List<Character> bobBases = generateBasis(qbits.size());
+        List<Character> bobBases = generateBasis(qBits.size());
 
         // Bob vergleicht die Bits von Alice mit seiner Basis und erstellt den Schlüssel
-        List<Integer > comparedBits = compare(qbits, bobBases);
+        List<Integer > comparedBits = compare(qBits, bobBases);
 
         // Bob sendet seine Basen an Alice. Dies passiert über einen offenen Kanal
         sendBasesToAlice(bobBases);
@@ -36,7 +36,7 @@ public class Bob {
         List<Integer> matching = readBaseMatches();
 
         // Bob und Alice entfernen die Bits an den jeweiligen Positionen
-        List<Integer> keeped = keepMatchingBits(qbitsToBits(qbits), matching);
+        List<Integer> keeped = keepMatchingBits(qbitsToBits(qBits), matching);
 
         // Der Schlüssel wird ausgegeben
         System.out.println("Der Schlüssel lautet:");
