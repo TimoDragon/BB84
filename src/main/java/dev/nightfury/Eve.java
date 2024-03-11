@@ -23,7 +23,10 @@ public class Eve {
         // Zufällig generierte Basen von Eve
         List<Character> eveBases = generateBasis(qBits.size());
 
+        // Eve vergleicht die Bits von Alice mit ihrer Basis
+        List<Integer > comparedBits = compare(qBits, eveBases);
 
+        sendQBitsToBob(qBits, eveBases);
     }
 
     public static void setupNetworking() throws IOException {
@@ -77,5 +80,38 @@ public class Eve {
         }
 
         return bobBases;
+    }
+
+    public static List<Integer> compare(List<QBit> bits, List<Character> bobBases) {
+        List<Integer> bitList = new LinkedList<>();
+        SecureRandom random = new SecureRandom();
+
+        for (int i = 0; i < bits.size(); i++) {
+            QBit qbit = bits.get(i);
+            char base = bobBases.get(i);
+
+            if (qbit.getBase() == base) { // Die Basis von Alice ist dieselbe wie die von Bob
+                bitList.add(qbit.getBit());
+            } else { // Die Basis von Alice ist anders als von Bob was dafür sorgt, dass Bobs messung zufällig ist
+                bitList.add(random.nextInt(2));
+            }
+        }
+
+        return bitList;
+    }
+
+    public static void sendQBitsToBob(List<QBit> qBits, List<Character> eveBases) throws IOException {
+        Gson gson = new Gson();
+
+        for (int i = 0; i < qBits.size(); i++) {
+            QBit newQBit = new QBit(qBits.get(i).getBit(), eveBases.get(i));
+
+            bobWriter.write(gson.toJson(newQBit));
+            bobWriter.newLine();
+        }
+
+        bobWriter.write("END");
+        bobWriter.newLine();
+        bobWriter.flush();
     }
 }

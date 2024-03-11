@@ -107,7 +107,7 @@ public class Alice {
 
         for (int i = 0; i < aliceBits.size(); i++) {
             if (aliceBits.get(i).getBase() == bobBases.get(i)) {
-                matching.add(i+1);
+                matching.add(i);
             }
         }
 
