@@ -36,7 +36,7 @@ public class Bob {
         List<Integer> matching = readBaseMatches();
 
         // Bob und Alice entfernen die Bits an den jeweiligen Positionen
-        List<Integer> keeped = keepMatchingBits(qbitsToBits(qbits), matching);
+        List<Integer> keeped = keepMatchingBits(comparedBits, matching);
 
         // Der Schlüssel wird ausgegeben
         System.out.println("Der Schlüssel lautet:");
